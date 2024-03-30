@@ -23,6 +23,70 @@ namespace PR_21._102_15_RK2023
         public MainWindow()
         {
             InitializeComponent();
+
+            btnSearch.Click += BtnSearch_Click;
+        }
+
+        //Обработка нажатия на кнопку 
+        private void BtnSearch_Click(object sender, RoutedEventArgs e)
+        {
+            //Строка, по которой будет производиться поиск
+            string search = tbSearch.Text;
+
+            try
+            {
+                //Подключение к базе
+                using (var model = new Entity.Entities())
+                {                   
+                    //Проверка, по какому способу сортировать (см. выпадающий список)
+                    if (cbOrderBy.SelectedItem == cbiNoOrder)
+                    {
+                        var c = model.Discipline.Where(x => x.Title.Contains(search));
+                        LoadData.ItemsSource = c.ToList();
+
+                        //Проверка, найдено ли хоть что-то
+                        if (c.Count() == 0)
+                        {
+                            MessageBox.Show("Ничего не найдено", "Поиск",
+                                MessageBoxButton.OK, MessageBoxImage.Question);
+                        }
+                    }
+                    else if (cbOrderBy.SelectedItem == cbiByName)
+                    {
+                        var c = model.Discipline.Where(x => x.Title.Contains(search))
+                            .OrderBy(x => x.Title);
+                        LoadData.ItemsSource = c.ToList();
+
+                        //Проверка, найдено ли хоть что-то
+                        if (c.Count() == 0)
+                        {
+                            MessageBox.Show("Ничего не найдено", "Поиск",
+                                MessageBoxButton.OK, MessageBoxImage.Question);
+                        }
+                    }
+                    else if (cbOrderBy.SelectedItem == cbiByNameDescr)
+                    {
+                        var c = model.Discipline.Where(x => x.Title.Contains(search))
+                            .OrderByDescending(x => x.Title);
+                        LoadData.ItemsSource = c.ToList();
+
+                        //Проверка, найдено ли хоть что-то
+                        if (c.Count() == 0)
+                        {
+                            MessageBox.Show("Ничего не найдено", "Поиск",
+                                MessageBoxButton.OK, MessageBoxImage.Question);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                //ошибка -> не вылет, а вывод сообщения о ней
+                MessageBox.Show("Couldn\'t make this operation, error: \n" + ex.Message
+                    , "Fatal error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
         }
     }
 }

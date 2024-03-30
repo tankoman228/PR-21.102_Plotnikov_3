@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PR_21._102_15_RK2023"
         mc:Ignorable="d"
-        Title="MainWindow" MinHeight="450" MinWidth="800">
+        Title="Дисциплины" MinHeight="450" MinWidth="800">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="3*" />
@@ -16,7 +16,7 @@
             Margin="30" FontSize="30"
             AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Title" Binding="{Binding Path=Title}" />
+                <DataGridTextColumn Header="Предмет" Binding="{Binding Path=Title}" />
             </DataGrid.Columns>
         </DataGrid>
 
@@ -29,7 +29,7 @@
             <TextBox VerticalAlignment="Center" FontSize="20" x:Name="tbSearch"></TextBox>
             <StackPanel Orientation="Horizontal" Grid.Column="1">
                 <TextBlock VerticalAlignment="Center" FontSize="20"
-                           Margin="10,0,0,0">Сортировка по</TextBlock>
+                           Margin="10,0,0,0">Сортировка</TextBlock>
                 <ComboBox VerticalAlignment="Center" FontSize="20" x:Name="cbOrderBy"
                           Margin="10,0,0,0" SelectedIndex="0">
                     <ComboBoxItem x:Name="cbiNoOrder">Не сортировать</ComboBoxItem>
@@ -38,7 +38,7 @@
 
                 </ComboBox>
                 <Button VerticalAlignment="Center" FontSize="20"
-                        Margin="10,0,0,0" x:Name="btnSearch">Поиск</Button>
+                        Margin="10,0,0,0" x:Name="btnSearch" Padding="5">Поиск</Button>
             </StackPanel>
         </Grid>
 
